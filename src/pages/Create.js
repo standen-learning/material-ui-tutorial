@@ -4,6 +4,7 @@ import { Typography, Button, Container} from '@mui/material'
 // import SendIcon from '@mui/icons-material/Send';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
+
 export default function Create() {
   return (
     <Container>
@@ -18,7 +19,7 @@ export default function Create() {
 
         <Button 
           type="submit"
-          color="secondary"
+          color="primary"
           variant="contained"
           onClick={() => console.log("You clicked me.")}
           endIcon={ <KeyboardArrowRightIcon /> }
