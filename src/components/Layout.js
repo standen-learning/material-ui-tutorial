@@ -1,7 +1,9 @@
 import React from 'react';
-import { Drawer, Typography, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Drawer, Typography, List, ListItem, ListItemIcon, ListItemText, AppBar, Toolbar, Avatar } from '@mui/material';
 import { AddCircleOutlineOutlined, SubjectOutlined } from '@mui/icons-material';
 import { useHistory, useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { Box } from '@mui/system';
+import { format } from 'date-fns';
 
 const drawerWidth = 240;
 
@@ -27,10 +29,20 @@ const styles = {
     },
     header: {
         padding: '10px'
-    }
+    },
+    appbar: {
+        width: `calc(100% - ${drawerWidth})px !important`
+    },
+    toolbar: (theme) => theme.mixins.toolbar,
+    date: {
+        flexGrow: 1
+    },
+    avatar: (theme) => ({
+        marginLeft: theme.spacing(2)
+    })
 };
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
     const history = useHistory();
     const location = useLocation();
 
@@ -50,6 +62,18 @@ export default function Layout({children}) {
   return (
     <div style={styles.root}>
         {/* App Bar */}
+        <AppBar 
+            style = {{width: `calc(100% - ${drawerWidth}px)`}}
+            elevation={0}
+        >
+            <Toolbar>
+                <Typography sx={styles.date}>
+                   Today is {format(new Date(), 'do MMMM Y')}
+                </Typography>
+                <Typography>Mario</Typography>
+                <Avatar src="/mario-av.png" sx={styles.avatar} />
+            </Toolbar>
+        </AppBar>
 
         {/* Side Drawer */}
         <Drawer
@@ -81,7 +105,10 @@ export default function Layout({children}) {
         </Drawer>
 
         <div style={styles.page}>
-            {children}
+            <Box sx={styles.toolbar}></Box>
+            <div style={{ paddingTop: '20px' }}>
+                {children}
+            </div>
         </div>
     </div>
   )
